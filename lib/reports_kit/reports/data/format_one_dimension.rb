@@ -93,7 +93,7 @@ module ReportsKit
                 sorted_dimension_keys_values = sorted_dimension_keys_values.reverse if order.direction == 'desc'
                 [series, Hash[sorted_dimension_keys_values]]
               end
-            elsif order.relation.is_a?(Fixnum)
+            elsif order.relation.is_a?(Integer)
               series_index = order.relation - 1
               raise ArgumentError.new("Invalid order column: #{order.relation}") unless series_index.in?((0..(serieses_results.length - 1)))
               dimension_keys_values = serieses_results.values.to_a[series_index]

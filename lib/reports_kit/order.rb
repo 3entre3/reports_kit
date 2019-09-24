@@ -23,7 +23,7 @@ module ReportsKit
 
       relation = relation.to_i if relation =~ /^\d+$/
 
-      raise ArgumentError.new("Invalid relation: #{relation}") unless VALID_RELATIONS.include?(relation) || relation.is_a?(Fixnum)
+      raise ArgumentError.new("Invalid relation: #{relation}") unless VALID_RELATIONS.include?(relation) || relation.is_a?(Integer)
       raise ArgumentError.new("Invalid field: #{field}") unless VALID_FIELDS.include?(field)
       raise ArgumentError.new("Invalid direction: #{direction}") unless VALID_DIRECTIONS.include?(direction)
 
