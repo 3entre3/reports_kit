@@ -157,7 +157,7 @@ module ReportsKit
           case dimension_instance
           when Time, Date
             Utils.format_display_time(dimension_instance)
-          when Fixnum
+          when Integer
             raise ArgumentError.new("ids_dimension_instances must be present for Dimension with identifier: #{dimension_instance}") unless ids_dimension_instances
             instance = ids_dimension_instances[dimension_instance.to_i]
             return unless instance

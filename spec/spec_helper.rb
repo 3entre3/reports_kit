@@ -5,7 +5,7 @@ require 'groupdate'
 require 'pry'
 require 'pry-byebug'
 require 'timecop'
-require 'support/factory_girl'
+require 'support/factory_bot'
 require 'support/helpers'
 
 Time.zone = ActiveSupport::TimeZone.new('UTC')
