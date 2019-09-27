@@ -73,6 +73,14 @@ module ReportsKit
 
         private
 
+        def merge_scales(options, default_options)
+          options[:scales].map do |key, values|
+            scales = default_options[:scales][key] + values
+            merge = scales.reduce(&:merge)
+            [key, [merge]]
+          end.to_h
+        end
+
         def set_colors
           if donut_or_pie_chart?
             set_record_scoped_colors
@@ -131,6 +139,10 @@ module ReportsKit
         def set_chart_options
           merged_options = default_options
           merged_options = merged_options.deep_merge(chart_options) if chart_options
+          merged_options[:scales] = merge_scales(
+            merged_options,
+            default_options
+          ) if chart_options[:merge_scales]
           data[:chart_data][:options] = merged_options
         end
 

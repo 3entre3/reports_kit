@@ -366,6 +366,7 @@ describe ReportsKit::Reports::Data::Generate do
       end
     end
 
+
     context 'with a limit' do
       let(:properties) do
         {
@@ -830,6 +831,56 @@ describe ReportsKit::Reports::Data::Generate do
             }
           ]
         })
+      end
+    end
+
+    context 'with merge_scales enabled' do
+      let(:properties) do
+        axes = [{ stacked: true }]
+        {
+          measure: 'issue',
+          dimensions: %w(opened_at),
+          chart: {
+            options: {
+              merge_scales: true,
+              scales: {
+                xAxes: axes,
+                yAxes: axes
+              }
+            }
+          }
+        }
+      end
+
+      it 'returns the chart_data with scales merge with default_options' do
+        expect(chart_options[:scales]).to eq({
+          xAxes: [
+            {
+              stacked: true,
+              gridLines: {
+                display: false
+              },
+              barPercentage: 0.9,
+              categoryPercentage: 0.9,
+              scaleLabel: {
+                display: true,
+                labelString: "Opened At"
+              }
+            },
+          ],
+          yAxes: [
+            {
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              },
+              scaleLabel: {
+                display: true,
+                labelString: "Issues"
+              }
+            }
+          ]
+        });
       end
     end
 
