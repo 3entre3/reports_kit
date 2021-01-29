@@ -81,7 +81,8 @@ module ReportsKit
 
         def primary_keys
           @primary_keys ||= begin
-            keys = Utils.populate_sparse_keys(dimension_keys.map(&:first).uniq, dimension: dimension)
+            d_keys = dimension_keys.map { |v| v.is_a?(Array) ? v.first : v }.uniq
+            keys = Utils.populate_sparse_keys(d_keys, dimension: dimension)
             unless dimension.configured_by_time?
               limit = dimension.dimension_instances_limit
               keys = keys.first(limit) if limit
@@ -92,7 +93,8 @@ module ReportsKit
 
         def secondary_keys
           @secondary_keys ||= begin
-            keys = Utils.populate_sparse_keys(dimension_keys.map(&:last).uniq, dimension: second_dimension)
+            d_keys = dimension_keys.map { |v| v.is_a?(Array) ? v.last : v }.uniq
+            keys = Utils.populate_sparse_keys(d_keys, dimension: second_dimension)
             limit = second_dimension.dimension_instances_limit
             keys = keys.first(limit) if limit
             keys
